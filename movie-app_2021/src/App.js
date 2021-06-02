@@ -3,18 +3,38 @@ import PT from 'prop-types';
 
 class App extends React.Component{
 
+  constructor(props){
+    super(props);
+    console.log("Hello");
+  }
+
   state = {
     count: 0
   };
 
   plus = () => {
     console.log("plus");
-    this.setState({count : this.state.count + 1});
+    this.setState(current => ({count : this.state.count + 1}));
   };
   minus = () => {
     console.log("minus");
-    this.setState({count : this.state.count - 1});
+    this.setState(current => ({count : this.state.count - 1}));
   };
+
+  // setState를 호출할때마다 will rerender.
+
+  componentDidMount(){
+    console.log("componentDidMount!");
+  }
+
+  componentDidUpdate(){
+    console.log("componentDidUpdate");
+  }
+
+  // ?? 페이지에서 not disappear.
+  componentWillUnmount(){
+    console.log("componentWillUnmount");
+  }
 
   render(){
     return (
