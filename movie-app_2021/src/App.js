@@ -1,16 +1,27 @@
-import React from 'react';
-import PT from 'prop-types';
+import React from "react";
+import PT from "prop-types";
+import axios from "axios";
 
 class App extends React.Component{
 
   state = {
-    isLoading : true
+    isLoading : true,
+    movies : []
   };
 
+  // You must waiting to do "await".
+  getMovies = async () => {
+    var movies = await axios.get("https://yts-proxy.nomadcoders1.now.sh/list_movies.json");
+  }
+
   componentDidMount(){
-    setTimeout(() => {
-      this.setState({isLoading : false});
-    }, 5000);
+    
+  this.getMovies();
+
+    // axios
+    // fetch 위에 있는 작은 layor 같다.
+    // 설치 명령어 : npm i axios
+
   }
 
   render(){
