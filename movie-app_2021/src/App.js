@@ -1,62 +1,19 @@
 import React from "react";
-import axios from "axios";
-import Movie from "./Movie";
+import { HashRouter, Route } from "react-router-dom";
+import "./App.css";
+import About from "./routes/About";
+import Home from "./routes/Home";
 
-class App extends React.Component {
-  state = {
-    isLoading: true,
-    movies: [],
-  };
+function App() {
+  return (
+    <HashRouter>
+      {/* 리액트 라우터는 url작동방식으로 작동되는데 라우터 path의 경로가 match 되면 렌더링한다. 그래서 여러개가 동시에 렌더링된것처럼 보인다.*/}
+      {/* exact true를 해줘서 이것을 막을 수 있다. */}
+      <Route path="/" exact={true} component={Home}></Route>
 
-  // You must waiting to do "await".
-
-  // axios
-  // fetch 위에 있는 작은 layor 같다.
-  // 설치 명령어 : npm i axios
-
-  _getMovies = async () => {
-    var {
-      data: {
-        data: { movies },
-      },
-    } = await axios.get(
-      "https://yts-proxy.nomadcoders1.now.sh/list_movies.json?sort_by=rating"
-    );
-    console.log(movies);
-    this.setState({ movies, isLoading: false });
-  };
-  get getMovies() {
-    return this._getMovies;
-  }
-  set getMovies(value) {
-    this._getMovies = value;
-  }
-
-  componentDidMount() {
-    this.getMovies();
-  }
-
-  render() {
-    var { isLoading, movies } = this.state;
-    return (
-      <div>
-        {isLoading
-          ? "Loading..."
-          : movies.map((movie) => {
-              return (
-                <Movie
-                  key={movie.id}
-                  id={movie.id}
-                  year={movie.year}
-                  title={movie.title}
-                  summary={movie.summary}
-                  poster={movie.medium_cover_image}
-                />
-              );
-            })}
-      </div>
-    );
-  }
+      <Route path="/about" component={About}></Route>
+    </HashRouter>
+  );
 }
 
 export default App;
