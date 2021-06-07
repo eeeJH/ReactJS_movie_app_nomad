@@ -1,6 +1,11 @@
 import React from "react";
 import "./About.css";
 
+// react-router-dom 에 의해서 받은 props들
+// history
+// location
+// match
+// staticContext
 function About() {
   return (
     <div className="about__container">
